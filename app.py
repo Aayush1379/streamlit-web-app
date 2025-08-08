@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import pyodbc
-import seaborn as sns
 import io
 
 st.set_page_config(page_title="Analyze Data With Clicks", page_icon="🔍", layout="wide")
