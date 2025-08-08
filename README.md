@@ -30,7 +30,7 @@ Whether your data is in **SQL Server** or a **CSV file**, this app lets you expl
 ## 📷 Screenshots
 
 ### Home Page
-![Home Page](images/Screenshot2025-08-08164420.png)
+![Home Page](images/home.png)
 
 ### EDA
 ![EDA]()
