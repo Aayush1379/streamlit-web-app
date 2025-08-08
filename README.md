@@ -33,13 +33,16 @@ Whether your data is in **SQL Server** or a **CSV file**, this app lets you expl
 ![Home Page](images/home.png)
 
 ### EDA
-![EDA]()
+![EDA](images/eda.png)
+
+### Filtering
+![Filter](images/filter.png)
 
 ### Data cleaning
-![clean](images/visualization.png)
+![clean](images/clean.png)
 
 ### Data Visuals
-![visuals]()
+![visuals](images/visual1.png)
 
 ---
 ## ⚙️ Usage
