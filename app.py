@@ -43,6 +43,16 @@ st.write("This app allows you to perform  EDA, data cleaning, and visualization 
 st.sidebar.subheader("Choose Source")
 source=st.sidebar.selectbox("Choose Source",["SQL Server", "CSV File"])
 # --- SQL Server connection ---
+if source == "CSV File":
+    
+    file_uploaded = st.sidebar.file_uploader("Choose a CSV file", type="csv")
+
+    # Only proceed if a file is uploaded
+    if file_uploaded is not None:
+        st.sidebar.success('File uploaded successfully')
+
+        # Read CSV into DataFrame
+        df = pd.read_csv(file_uploaded)
 if source == "SQL Server":
     st.sidebar.success('You selected SQL Explorer')
 
@@ -108,18 +118,6 @@ if source == "SQL Server":
 
     except Exception as e:
         st.error(f"Error: {e}")
-
-if source == "CSV File":
-    
-    file_uploaded = st.sidebar.file_uploader("Choose a CSV file", type="csv")
-
-    # Only proceed if a file is uploaded
-    if file_uploaded is not None:
-        st.sidebar.success('File uploaded successfully')
-
-        # Read CSV into DataFrame
-        df = pd.read_csv(file_uploaded)
-
 st.subheader("🔍EDA")
 st.write("Perform basic EDA on your uploaded CSV file")
 c1, c2, c3, c4, c5, c6 ,c7= st.columns([1,1,1,1,1,1.5,1])
