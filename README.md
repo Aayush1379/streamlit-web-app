@@ -32,8 +32,14 @@ Whether your data is in **SQL Server** or a **CSV file**, this app lets you expl
 ### Home Page
 ![Home Page](images/homepage.png)
 
-### Data Visualization Example
-![Visualization](images/visualization.png)
+### EDA
+![EDA]()
+
+### Data cleaning
+![clean](images/visualization.png)
+
+### Data Visuals
+![visuals]()
 
 ---
 ## ⚙️ Usage
@@ -53,12 +59,9 @@ Whether your data is in **SQL Server** or a **CSV file**, this app lets you expl
 
 1. **Clone this repository**
    ```bash
-   git clone https://github.com/your-username/no-code-data-analysis.git
+   1. git clone https://github.com/your-username/no-code-data-analysis.git
    cd streamlit-web-app
----
-## 📦 Installation
-
-1. **Install dependencies**
+   2. **Install dependencies**
    ```bash
    pip install -r requirements.txt
 ---
@@ -66,5 +69,16 @@ Whether your data is in **SQL Server** or a **CSV file**, this app lets you expl
 streamlit run app.py
 or
 python -m streamlit run app.py
+---
+## Target Audience 
+
+- **Business analysts and data professionals** who need to explore and visualize datasets quickly without extensive coding.
+
+- **Decision-makers and managers** who want clear insights from data to guide strategic planning.
+
+- **Students and learners** interested in understanding data analysis concepts through interactive visualizations.
+
+- **Non-technical users** who want user-friendly tools to analyze CSV files or SQL data without programming knowledge.
+
 
 
