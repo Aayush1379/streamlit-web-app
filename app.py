@@ -46,39 +46,68 @@ source=st.sidebar.selectbox("Choose Source",["SQL Server", "CSV File"])
 if source == "SQL Server":
     st.sidebar.success('You selected SQL Explorer')
 
-    # Input server and database name only
-    server = st.sidebar.text_input('your_server', value='localhost\\SQLEXPRESS')
-    dbs=pd.read_sql("SELECT name FROM sys.databases", pyodbc.connect(f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};Trusted_Connection=yes;'))
-    database = st.sidebar.selectbox('choose_database',dbs['name'].tolist())
-
-    # Use Windows Authentication (no username/password)
-    try:
-        conn = pyodbc.connect(
-            f'DRIVER={{ODBC Driver 17 for SQL Server}};'
-            f'SERVER={server};'
-            f'DATABASE={database};'
-            f'Trusted_Connection=yes;'
+    server = st.sidebar.text_input('Server name', value='localhost\\SQLEXPRESS')
+    
+    # Add username/password inputs for SQL Authentication
+    use_sql_auth = st.sidebar.checkbox("Use SQL Authentication (username/password)", value=False)
+    
+    if use_sql_auth:
+        username = st.sidebar.text_input("Username")
+        password = st.sidebar.text_input("Password", type="password")
+        conn_str = (
+            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+            f"SERVER={server};"
+            f"UID={username};"
+            f"PWD={password};"
         )
-        cursor = conn.cursor()
+    else:
+        # Default: Windows Authentication
+        conn_str = (
+            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+            f"SERVER={server};"
+            f"Trusted_Connection=yes;"
+        )
 
-        # --- Sidebar UI ---
-        st.sidebar.subheader("SQL Explorer")
+    try:
+        conn = pyodbc.connect(conn_str)
+        
+        # Get databases
+        dbs = pd.read_sql("SELECT name FROM sys.databases", conn)
+        database = st.sidebar.selectbox('Choose database', dbs['name'].tolist())
+        
+        # Connect to selected database
+        conn.close()  # close first connection
+        if use_sql_auth:
+            conn = pyodbc.connect(
+                f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+                f"SERVER={server};"
+                f"DATABASE={database};"
+                f"UID={username};"
+                f"PWD={password};"
+            )
+        else:
+            conn = pyodbc.connect(
+                f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+                f"SERVER={server};"
+                f"DATABASE={database};"
+                f"Trusted_Connection=yes;"
+            )
+        cursor = conn.cursor()
 
         # Get tables
         cursor.execute("SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'")
         table_info = cursor.fetchall()
-        table_options = [f"{row[0]}.{row[1]}" for row in table_info]  # schema.table
+        table_options = [f"{row[0]}.{row[1]}" for row in table_info]
 
         selected_table = st.sidebar.selectbox("Choose a table", table_options)
 
-
-        # Display selected table data
         if selected_table:
             schema, table = selected_table.split(".")
             df = pd.read_sql(f"SELECT * FROM [{schema}].[{table}]", conn)
+            st.dataframe(df)
 
-    except Exception:
-        st.error(f"Please choose Data.... ")
+    except Exception as e:
+        st.error(f"Error: {e}")
 
 if source == "CSV File":
     
