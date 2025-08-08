@@ -27,10 +27,25 @@ Whether your data is in **SQL Server** or a **CSV file**, this app lets you expl
 - **Database Support:** SQL Server (via `pyodbc`)  
 
 ---
-
 ## 📷 Screenshots
 
-> *(Add images of your app here for visual appeal)*
+### Home Page
+![Home Page](images/homepage.png)
+
+### Data Visualization Example
+![Visualization](images/visualization.png)
+
+---
+## ⚙️ Usage
+
+1. Launch the app in your browser (Streamlit will open it automatically)  
+2. Upload your CSV file **or** connect to SQL Server by providing credentials  
+3. Explore your data:
+   - View summary statistics & data info  
+   - Clean missing values or duplicates  
+   - Filter data with easy dropdowns  
+   - Generate visualizations dynamically and customize them on the fly  
+
 
 ---
 
@@ -40,3 +55,16 @@ Whether your data is in **SQL Server** or a **CSV file**, this app lets you expl
    ```bash
    git clone https://github.com/your-username/no-code-data-analysis.git
    cd streamlit-web-app
+---
+## 📦 Installation
+
+1. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+---
+## Run
+streamlit run app.py
+or
+python -m streamlit run app.py
+
+
